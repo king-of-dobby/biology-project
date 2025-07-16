@@ -51,31 +51,31 @@ features_info = [
     ("Breathes through gills", [0, 1]),
     
     # 26~50
-    ("Has fur (intensity)", [0, 1, 2]),
-    ("Beak sharpness", [0, 1, 2]),
+    ("Has fur (intensity)", list(range(1, 11))),          # 1 (none) ~ 10 (furry)
+    ("Beak sharpness", list(range(0, 6))),      # 0~5
     ("Leg length", [0, 1, 2]),
     ("Fin shape complexity", [0, 1, 2]),
     ("Wing span", [0, 1, 2]),
-    ("Horns length", [0, 1, 2]),
+    ("Horns length (cm)", list(range(1, 501))),       # 1~500cm
     ("Body texture", [0, 1, 2]),
     ("Has shell", [0, 1]),
     ("Is warm-blooded", [0, 1]),
-    ("Eye size", [0, 1, 2]),
+    ("Eye size (cm)", list(range(1, 501))),       # 1~500cm
     ("Color contrast", [0, 1, 2]),
-    ("Number of eyes", [0, 2, 4, 6]),
-    ("Tail length", [0, 1, 2]),
+    ("Number of eyes", [0, 2, 4, 6, 8]),
+    ("Tail length (cm)", list(range(1, 501))),       # 1~500cm
     ("Snout shape", [0, 1, 2]),
-    ("Voice volume", [0, 1, 2]),
+    ("Voice volume", list(range(0, 7))),      # 0~6
     ("Leg claws", [0, 1]),
     ("Webbed feet", [0, 1]),
-    ("Ear shape", [0, 1, 2]),
+    ("Ear shape", list(range(1, 11))),          # 1 (small) ~ 10 (large)
     ("Can glow", [0, 1]),
     ("Vocal mimicry", [0, 1]),
     ("Flight maneuverability", [0, 1, 2]),
-    ("Mouth size", [0, 1, 2]),
+    ("Mouth size", list(range(1, 501))),       # 1~500cm
     ("Spine visibility", [0, 1, 2]),
     ("Defense mechanism", [0, 1, 2]),
-    ("Hair density", [0, 1, 2])
+    ("Hair density", list(range(1, 11))),          # 1 (none) ~ 10 (furry)
 ]
 
 # Organism 1 입력

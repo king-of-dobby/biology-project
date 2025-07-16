@@ -14,7 +14,7 @@ st.title("🧬 생물 쌍 분류기: 같은 종인가요?")
 
 st.markdown("""
 이 웹앱은 두 생물의 **외형적 특징 50가지씩**을 바탕으로,  
-**사람이 같은 종이라고 판단할지** AI가 예측하는 도구입니다.
+**사람이 같은 종이라고 판단할지** AI가 예측하는 도구입니다.  
 우리 정환이 사랑해!! 기다려줘서 고마워!! 히히 이거 한 줄 추가한다고.💕❤️
 
 **입력 안내:**  
@@ -24,19 +24,19 @@ st.markdown("""
 
 # === 특징 설명 및 입력 범위 ===
 features_info = [
-    ("Has fur", [0, 1]),  # 0: 없음, 1: 있음
+    ("Has fur", [0, 1]),                        # binary
     ("Has feathers", [0, 1]),
     ("Has scales", [0, 1]),
     ("Has wings", [0, 1]),
-    ("Number of legs", [0, 2, 4, 6, 8]),
-    ("Number of fins", [0, 1, 2, 3, 4]),
+    ("Number of legs", list(range(0, 11, 2))),  # 0, 2, ..., 10
+    ("Number of fins", list(range(0, 7))),      # 0~6
     ("Has tail", [0, 1]),
     ("Has horns", [0, 1]),
     ("Has beak", [0, 1]),
-    ("Colorful body", [0, 1, 2]),
-    ("Patterned skin", [0, 1]),
-    ("Size (small~large)", [0, 1, 2]),
-    ("Aggressive behavior", [0, 1, 2]),
+    ("Colorful body", [0, 1, 2]),               # ordinal
+    ("Patterned skin", [0, 1, 2]),
+    ("Body size", list(range(1, 11))),          # 1 (small) ~ 10 (large)
+    ("Aggressiveness", list(range(0, 6))),      # 0~5
     ("Nocturnal", [0, 1]),
     ("Can fly", [0, 1]),
     ("Can swim", [0, 1]),
@@ -49,52 +49,51 @@ features_info = [
     ("Can camouflage", [0, 1]),
     ("Has teeth", [0, 1]),
     ("Breathes through gills", [0, 1]),
-    
-    # 26~50
-    ("Has fur (intensity)", [0, 1, 2]),
-    ("Beak sharpness", [0, 1, 2]),
-    ("Leg length", [0, 1, 2]),
-    ("Fin shape complexity", [0, 1, 2]),
-    ("Wing span", [0, 1, 2]),
-    ("Horns length", [0, 1, 2]),
-    ("Body texture", [0, 1, 2]),
+    ("Has whiskers", [0, 1]),
+    ("Length (cm)", list(range(1, 501))),       # 1~500cm
+    ("Height (cm)", list(range(1, 501))),
+    ("Weight (kg)", list(range(1, 201))),
+    ("Has scales on legs", [0, 1]),
+    ("Has webbed feet", [0, 1]),
     ("Has shell", [0, 1]),
-    ("Is warm-blooded", [0, 1]),
-    ("Eye size", [0, 1, 2]),
-    ("Color contrast", [0, 1, 2]),
-    ("Number of eyes", [0, 2, 4, 6]),
-    ("Tail length", [0, 1, 2]),
-    ("Snout shape", [0, 1, 2]),
-    ("Voice volume", [0, 1, 2]),
-    ("Leg claws", [0, 1]),
-    ("Webbed feet", [0, 1]),
-    ("Ear shape", [0, 1, 2]),
-    ("Can glow", [0, 1]),
-    ("Vocal mimicry", [0, 1]),
-    ("Flight maneuverability", [0, 1, 2]),
-    ("Mouth size", [0, 1, 2]),
-    ("Spine visibility", [0, 1, 2]),
-    ("Defense mechanism", [0, 1, 2]),
-    ("Hair density", [0, 1, 2])
+    ("Number of eyes", list(range(0, 11))),
+    ("Infrared vision", [0, 1]),
+    ("Ultraviolet vision", [0, 1]),
+    ("Habitat: water", [0, 1]),
+    ("Habitat: land", [0, 1]),
+    ("Habitat: air", [0, 1]),
+    ("Has spinnerets", [0, 1]),
+    ("Produces venom", [0, 1]),
+    ("Can regenerate", [0, 1]),
+    ("Has suction cups", [0, 1]),
+    ("Segmented body", [0, 1]),
+    ("Spine flexibility", list(range(1, 11))),
+    ("Intelligence (subjective)", list(range(1, 6))),
+    ("Average lifespan (years)", list(range(1, 101))),
+    ("Reproductive rate", list(range(1, 11))),
+    ("Parental care", [0, 1]),
+    ("Social behavior", [0, 1])
 ]
 
-# Organism 1 입력
-st.subheader("🔵 Organism 1 특징 입력")
-features_1 = []
-cols1 = st.columns(5)
-for i, (desc, options) in enumerate(features_info):
-    with cols1[i % 5]:
-        val = st.selectbox(f"{i+1}. {desc}", options, key=f"o1_{i}")
-        features_1.append(val)
+# Organism 입력 함수
+def input_organism_features(label_prefix):
+    st.subheader(f"{label_prefix} 생물 특징 입력")
+    inputs = []
+    cols = st.columns(5)
+    for i, (desc, options) in enumerate(feature_definitions):
+        with cols[i % 5]:
+            if len(options) <= 3:
+                val = st.selectbox(f"{label_prefix} - {desc}", options, key=f"{label_prefix}_{i}")
+            elif len(options) <= 20:
+                val = st.slider(f"{label_prefix} - {desc}", min_value=min(options), max_value=max(options), key=f"{label_prefix}_{i}")
+            else:
+                val = st.number_input(f"{label_prefix} - {desc}", min_value=min(options), max_value=max(options), step=1, key=f"{label_prefix}_{i}")
+            inputs.append(val)
+    return inputs
 
-# Organism 2 입력
-st.subheader("🟢 Organism 2 특징 입력")
-features_2 = []
-cols2 = st.columns(5)
-for i, (desc, options) in enumerate(features_info):
-    with cols2[i % 5]:
-        val = st.selectbox(f"{i+1}. {desc}", options, key=f"o2_{i}")
-        features_2.append(val)
+# 두 생물의 특징 입력 받기
+features_1 = input_organism_features("🔵 Organism 1")
+features_2 = input_organism_features("🟢 Organism 2")
 
 # 예측
 if st.button("🔍 예측하기"):

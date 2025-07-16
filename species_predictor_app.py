@@ -23,7 +23,7 @@ st.markdown("""
 - 0/1은 해당 특성의 유무를 나타냅니다.
 """)
 
-# 항목 구분: 입력 형식별 분류
+# 항목 구분
 drag_and_drop_features = {
     "Colorful body": [0, 1, 2],
     "Body texture": [0, 1, 2],
@@ -68,8 +68,10 @@ slider_features = {
     "Hair density": (1, 10),
 }
 
-# === 50개 항목 정의 ===
+# 50개 항목
 features_order = [
     "Has fur", "Has feathers", "Has scales", "Has wings", "Number of legs",
     "Number of fins", "Has tail", "Has horns", "Has beak", "Colorful body",
-    "Patterned skin", "Body size", "Agg
+    "Patterned skin", "Body size", "Aggressiveness", "Nocturnal", "Can fly",
+    "Can swim", "Has claws", "Body symmetry", "Has antennae", "Has exoskeleton",
+    "Has internal skeleton", "Makes sound", "Can camouflage", "Has teeth", "Breathes

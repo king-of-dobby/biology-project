@@ -118,7 +118,7 @@ if st.button("🔍 예측하기"):
         st.error(f"❌ AI의 판단: 두 생물은 **다른 종**일 가능성이 높습니다. (확률: {proba[0]:.2f})")
 
 st.markdown("""
-    <div style='text-align: center; font-size: 10px;'>
+    <div style='text-align: center; font-size: 15px;'>
         Copyright 2025. Yoon Ji Young. All rights reserved.  
         고생했다 나 자신🌻 
     </div>

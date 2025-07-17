@@ -120,6 +120,6 @@ if st.button("🔍 예측하기"):
 st.markdown("""
     <div style='text-align: center; font-size: 15px;'>
         Copyright 2025. Yoon Ji Young. All rights reserved.  
-        고생했다 나 자신🌻 
+고생했다 나 자신🌻 
     </div>
 """, unsafe_allow_html=True)
